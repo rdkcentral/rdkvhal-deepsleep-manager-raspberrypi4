@@ -16,4 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##########################################################################
+lib_LTLIBRARIES = libiarmmgrs-deepsleep-hal.la
 libiarmmgrs_deepsleep_hal_la_SOURCES=plat-deepsleep.c
+libiarmmgrs_deepsleep_hal_la_CFLAGS=$(IARMMGRS_HAL_DS_CFLAGS)
+libiarmmgrs_deepsleep_hal_la_CFLAGS+=-DENABLE_DEEP_SLEEP
+libiarmmgrs_deepsleep_hal_la_LIBADD=$(IARMMGRS_HAL_DS_LIBS)
