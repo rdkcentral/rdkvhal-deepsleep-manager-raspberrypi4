@@ -24,6 +24,8 @@
 
 #define DEBUG_PLAT
 
+#define max_timeOut 604800
+
 #ifdef DEBUG_PLAT
 #define DEBUG_MSG(x,y...) printf(x,##y)
 #else
@@ -78,6 +80,12 @@ DeepSleep_Return_Status_t PLAT_DS_SetDeepSleep(uint32_t deep_sleep_timeout, bool
     if (NULL == isGPIOWakeup) {
         return DEEPSLEEPMGR_INVALID_ARGUMENT;
     }
+
+    // Validate timeout value - maximum allowed is max_timeOut seconds (7 days)
+    if (deep_sleep_timeout > max_timeOut) {
+        return DEEPSLEEPMGR_INVALID_ARGUMENT;
+    }
+
     if (DEEPSLEEPMGR_ALREADY_INITIALIZED == deepSleepStatus) {
         // FIXME: RPi don't have any deep sleep support.
         DEBUG_MSG("PLAT_DS_SetDeepSleep: RPi don't have any deep sleep support.\r\n");
